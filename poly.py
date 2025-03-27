@@ -112,12 +112,57 @@ class LinkedList:
     # If a term with that exponent already exists, add the coefficients together.
     # You must keep the terms in descending order by exponent.
     def insert_term(self, coeff, exp):
-        pass
+        new_node = Node(coeff, exp)
+        if coeff == 0:
+            return
+        if self.head is None:
+            self.head = new_node
+            return
+
+        current = self.head
+        previous = None
+
+        while current is not None and current.exp > exp:
+            previous = current
+            current = current.next
+
+        if current is not None and current.exp == exp:
+            new_coeff = current.coeff + coeff
+            if new_coeff == 0:
+                if previous is None:
+                    self.head = current.next
+                else:
+                    previous.next = current.next
+            else:
+                current.coeff = new_coeff
+            return
+        new_node.next = current
+        if previous is None:
+            self.head = new_node
+        else:
+            previous.next = new_node
 
     # Add a polynomial p to the polynomial and return the resulting polynomial as a new linked list.
     def add(self, p):
-        pass
+        result = LinkedList()
 
+        current = self.head  # or p.head if you're traversing the other list
+
+        while current is not None:
+            coeff = current.coeff
+            exp = current.exp
+            result.insert_term(coeff, exp)
+            current = current.next
+
+        current = p.head
+        while current is not None:
+            coeff = current.coeff
+            exp = current.exp
+            result.insert_term(coeff, exp)
+            current = current.next
+
+        return result
+    
     # Multiply a polynomial p with the polynomial and return the product as a new linked list.
     def mult(self, p):
         pass
