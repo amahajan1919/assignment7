@@ -2,7 +2,7 @@
 Student information for this assignment:
 
 Replace <FULL NAME> with your name.
-On my/our honor, Aakanksha Mahajan and <FULL NAME>, this
+On my/our honor, Aakanksha Mahajan and Surabhi Arun, this
 programming assignment is my own work and I have not provided this code to
 any other student.
 
@@ -13,7 +13,7 @@ code to someone else), the case shall be submitted to the Office of the Dean of
 Students. Academic penalties up to and including an F in the course are likely.
 
 UT EID 1: am96292
-UT EID 2:
+UT EID 2: sa59594
 """
 
 
@@ -165,11 +165,35 @@ class LinkedList:
     
     # Multiply a polynomial p with the polynomial and return the product as a new linked list.
     def mult(self, p):
-        pass
+        result = LinkedList()
+
+        current = self.head
+        while current:
+            temp = LinkedList()
+
+            other = p.head
+            while other:
+                temp.insert_term(current.coeff * other.coeff, current.exp + other.exp)
+                other = other.next
+
+            result = result.add(temp)
+            current = current.next
+
+        return result
 
     # Return a string representation of the polynomial.
     def __str__(self):
-        pass
+        if self.head is None:
+            return ""
+
+        terms = []
+        current = self.head
+
+        while current:
+            terms.append(f"({current.coeff}, {current.exp})")
+            current = current.next
+
+        return " + ".join(terms)s
 
 
 def main():
@@ -180,7 +204,23 @@ def main():
     # get sum of p and q as a new linked list and print sum
 
     # get product of p and q as a new linked list and print product
-    pass
+    n = int(input().strip())
+    p = LinkedList()
+    for _ in range(n):
+        coeff, exp = map(int, input().split())
+        p.insert_term(coeff, exp)
+
+    input()
+
+    m = int(input().strip())
+    q = LinkedList()
+    for _ in range(m):
+        coeff, exp = map(int, input().split())
+        q.insert_term(coeff, exp)
+
+    print(p.add(q))
+
+    print(p.mult(q))
 
 
 if __name__ == "__main__":
