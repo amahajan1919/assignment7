@@ -97,7 +97,28 @@ class Node:
 
 
 class LinkedList:
+    """
+    A class representing a polynomial as a linked list, where each node stores a term.
+    
+    Attributes:
+    head (Node, optional): The head node of the linked list (first term in the polynomial).
+    
+    Methods:
+    __init__(): Initializes the linked list (starting with an empty list).
+    insert_term(coeff, exp): Inserts a new term with a given coefficient 
+    and exponent into the polynomial.
+    add(p): Adds the current polynomial to another polynomial p, and 
+    returns the resulting polynomial as a new linked list.
+    mult(p): Multiplies the current polynomial with another polynomial p, 
+    and returns the resulting polynomial as a new linked list.
+    __str__(): Returns a string representation of the polynomial as a sum of its terms.
+    """
     def __init__(self):
+        """
+        Initializes the linked list with an empty list.
+
+        The list starts with the head set to None.
+        """
         # You are also welcome to use a sentinel/dummy node!
         # It is definitely recommended, which will we learn more
         # about in class on Monday 3/24. If you choose to use
@@ -112,6 +133,16 @@ class LinkedList:
     # If a term with that exponent already exists, add the coefficients together.
     # You must keep the terms in descending order by exponent.
     def insert_term(self, coeff, exp):
+        """
+        Inserts a term with a given coefficient and exponent into the polynomial.
+
+        If a term with the same exponent already exists, the coefficients are combined.
+        Terms are inserted in descending order by exponent.
+
+        Args:
+        coeff (int): The coefficient of the term.
+        exp (int): The exponent of the term.
+        """
         new_node = Node(coeff, exp)
         if coeff == 0:
             return
@@ -144,6 +175,19 @@ class LinkedList:
 
     # Add a polynomial p to the polynomial and return the resulting polynomial as a new linked list.
     def add(self, p):
+        """
+        Adds the current polynomial to another polynomial and 
+        returns the resulting polynomial as a new linked list.
+        The terms from both polynomials are added together. 
+        If terms with the same exponent are found, 
+        their coefficients are summed. The result is sorted in descending order by exponent.
+
+        Args:
+        p (LinkedList): The polynomial to add to the current polynomial.
+
+        Returns:
+        LinkedList: A new linked list representing the sum of the two polynomials.
+        """
         result = LinkedList()
 
         current = self.head  # or p.head if you're traversing the other list
@@ -162,9 +206,23 @@ class LinkedList:
             current = current.next
 
         return result
-    
+
     # Multiply a polynomial p with the polynomial and return the product as a new linked list.
     def mult(self, p):
+        """
+        Multiplies the current polynomial with another polynomial 
+        and returns the resulting polynomial as a new linked list.
+
+        The multiplication is done term by term, where each term in 
+        the first polynomial is multiplied by each term in the second polynomial. 
+        The result is sorted in descending order by exponent.
+
+        Args:
+        p (LinkedList): The polynomial to multiply with the current polynomial.
+
+        Returns:
+        LinkedList: A new linked list representing the product of the two polynomials.
+        """
         result = LinkedList()
 
         current = self.head
@@ -197,6 +255,15 @@ class LinkedList:
 
 
 def main():
+    """
+    Main function that reads polynomial data from stdin (terminal or file), 
+    creates two polynomials, and prints the sum and product of the two polynomials.
+
+    It first reads the number of terms for each polynomial, creates the polynomials, 
+    then computes and prints the sum and product of the two polynomials.
+
+    The sum and product are printed as string representations of the resulting polynomials.
+    """
     # read data from stdin (terminal/file) using input() and create polynomial p
 
     # read data from stdin (terminal/file) using input() and create polynomial q
